@@ -1,7 +1,7 @@
 import { useLoaderData, useLocation } from 'react-router-dom';
 import PageTitle from '../components/PageTitle';
 import { easeOut, motion } from 'framer-motion';
-import UserPrompt from '../components/userPrompt';
+import UserPrompt from '../components/UserPrompt';
 import AiResponse from '../components/AiResponse';
 import PromptPreLoader from '../components/PromptPreLoader';
 import { usePromptPreloader } from '../hooks/usePromptPreloader';
