@@ -107,7 +107,7 @@ const Register = () => {
             </p>
           </div>
           <p className='mt-auto mx-auto text-light-onSurfaceVariant dark:text-dark-onSurfaceVariant text-bodyMedium lg:mx-0'>
-            &copy; 2024 Mayur. All right reseerved
+            &copy; 2024 Mayur. All right reserved
           </p>
         </div>
         <div className='hidden img-box lg:block lg:relative lg:rounded-large lg:overflow-hidden'>
