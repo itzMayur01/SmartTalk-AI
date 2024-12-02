@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import UserPrompt from './userPrompt';
+import UserPrompt from './UserPrompt';
 import AiResponse from './AiResponse';
 import Skeleton from './Skeleton';
 
