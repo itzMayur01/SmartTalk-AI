@@ -37,7 +37,7 @@ const Register = () => {
     // Client-Side Validation Rules
     if (!name.trim()) {
       errors.name = 'Name is required.';
-    } else if (name.length <= 4) {
+    } else if (name.length < 4) {
       errors.name = 'Name must be at least 4 characters.';
     }
     if (!email.trim()) {
