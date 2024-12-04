@@ -5,7 +5,7 @@ import TextField from '../components/TextField';
 import Button from '../components/Button';
 import { Spinner, LinearProgress } from '../components/Spinner';
 import { useActionData } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { AnimatePresence } from 'framer-motion';
@@ -24,6 +24,47 @@ const Register = () => {
       toast.error(error.message); // Display error toast
     }
   }, [error]); // Trigger useEffect whenever `error` changes
+
+  const [formErrors, setFormErrors] = useState({});
+  const actionData = useActionData(); // Server-side errors returned from action function
+
+  const validateInputs = (formData) => {
+    const errors = {};
+    const name = formData.get('name');
+    const email = formData.get('email');
+    const password = formData.get('password');
+
+    // Client-Side Validation Rules
+    if (!name.trim()) {
+      errors.name = 'Name is required.';
+    } else if (name.length <= 4) {
+      errors.name = 'Name must be at least 4 characters.';
+    }
+    if (!email.trim()) {
+      errors.email = 'Email is required.';
+    } else if (
+      !/^[a-zA-Z0-9._%+-]+@(gmail\.com|yahoo\.com|outlook\.com)$/.test(email)
+    ) {
+      errors.email = 'Email must be a valid Gmail, Yahoo, or Outlook address.';
+    }
+
+    if (!password.trim()) {
+      errors.password = 'Password is required.';
+    } else if (password.length < 8) {
+      errors.password = 'Password must be at least 8 characters.';
+    }
+
+    return errors;
+  };
+
+  const handleSubmit = (e) => {
+    const formData = new FormData(e.target);
+    const errors = validateInputs(formData);
+    if (Object.keys(errors).length > 0) {
+      setFormErrors(errors);
+      e.preventDefault(); // Prevent submission if there are client-side errors
+    }
+  };
 
   return (
     <>
@@ -54,10 +95,13 @@ const Register = () => {
               Register today and gain access to powerful tools that will
               supercharge your ideas.
             </p>
-
+            {actionData?.error && (
+              <p className='text-red-500'>{actionData.error}</p>
+            )}
             <Form
               method='POST'
               className='grid grid-cols-1 gap-4'
+              onSubmit={handleSubmit}
             >
               <TextField
                 type='text'
@@ -66,6 +110,8 @@ const Register = () => {
                 placeholder='Full name'
                 required={true}
                 autoFocus={true}
+                helperText={formErrors.name}
+                fieldClasses={formErrors.name ? 'border-red-500' : ''}
               />
 
               <TextField
@@ -74,6 +120,8 @@ const Register = () => {
                 label='Email'
                 placeholder='Email'
                 required={true}
+                helperText={formErrors.email}
+                fieldClasses={formErrors.email ? 'border-red-500' : ''}
               />
 
               <TextField
@@ -82,6 +130,8 @@ const Register = () => {
                 label='Password'
                 placeholder='Enter your password'
                 required={true}
+                helperText={formErrors.password}
+                fieldClasses={formErrors.password ? 'border-red-500' : ''}
               />
 
               <Button
