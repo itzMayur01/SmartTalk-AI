@@ -82,7 +82,7 @@ const SideBar = ({ isSidebarOpen, toggleSidebar }) => {
           border-light-surfaceContainerHigh
           dark:border-dark-surfaceContainerHigh truncate '
           >
-            &copy; 2024 Mayur
+            &copy; 2025 Thakur Sahab
           </div>
         </div>
       </motion.div>
