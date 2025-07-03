@@ -17,7 +17,7 @@ const RootError = () => {
         </p>
         <Link
           className='btn filled primary'
-          to='/'
+          to='/Login'
         >
           Back to home
         </Link>
